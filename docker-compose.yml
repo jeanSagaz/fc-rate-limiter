@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  redis:
+    container_name: fc-redis
+    image: redis:alpine
+    command: redis-server --requirepass Redis    
+    ports:
+      - 6379:6379
+      - 5002:5002
+
+  service:
+    container_name: rate-limiter
+    build:
+      dockerfile: docker/Dockerfile
+      context: .
+    # restart: always    
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/go/src/
