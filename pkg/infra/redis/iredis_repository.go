@@ -1,12 +1,11 @@
 package redis
 
 import (
+	"context"
 	"time"
-
-	"github.com/go-redis/redis/v8"
 )
 
 type IRedisRepository interface {
-	Set(c *redis.Client, key string, value interface{}, duration time.Duration) error
-	Get(c *redis.Client, key string) (string, error)
+	Set(ctx context.Context, key string, value interface{}, duration time.Duration) error
+	Get(ctx context.Context, key string) (string, error)
 }

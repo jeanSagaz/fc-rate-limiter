@@ -29,5 +29,7 @@ SECONDS: Tempo que vai durar a chave no Redis
 go 1.22
  - Router [chi](https://github.com/go-chi/chi)
  - Viper
+ - DI
  - Redis
+ - testing
  

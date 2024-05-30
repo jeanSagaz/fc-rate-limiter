@@ -1,24 +1,33 @@
 package redis
 
 import (
+	"context"
 	"encoding/json"
 	"time"
 
 	"github.com/go-redis/redis/v8"
 )
 
-func (d *RedisConnection) Set(c *redis.Client, key string, value interface{}, duration time.Duration) error {
+type RedisRepository struct {
+	RedisDb *redis.Client
+}
+
+func NewRedisRepositoryDb(db *redis.Client) *RedisRepository {
+	return &RedisRepository{RedisDb: db}
+}
+
+func (r *RedisRepository) Set(ctx context.Context, key string, value interface{}, duration time.Duration) error {
 	b, err := json.Marshal(value)
 	if err != nil {
 		return err
 	}
 
 	json := string(b)
-	return c.Set(d.Context, key, json, duration).Err()
+	return r.RedisDb.Set(ctx, key, json, duration).Err()
 }
 
-func (d *RedisConnection) Get(c *redis.Client, key string) (string, error) {
-	value, err := c.Get(d.Context, key).Result()
+func (r *RedisRepository) Get(ctx context.Context, key string) (string, error) {
+	value, err := r.RedisDb.Get(ctx, key).Result()
 	if err == redis.Nil {
 		return "", err
 	}

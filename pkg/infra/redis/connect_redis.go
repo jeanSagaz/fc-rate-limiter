@@ -9,7 +9,6 @@ import (
 )
 
 type RedisConnection struct {
-	Context  context.Context
 	Addr     string
 	Password string
 	Database int
@@ -25,16 +24,16 @@ func NewRedis(addr string,
 	}
 }
 
-func (d *RedisConnection) Connect(ctx context.Context) (*redis.Client, error) {
+func (r *RedisConnection) Connect(ctx context.Context) (*redis.Client, error) {
 	rdb := redis.NewClient(&redis.Options{
-		Addr:     d.Addr,
-		Password: d.Password, // no password set
-		DB:       d.Database, // use default DB
+		Addr:     r.Addr,
+		Password: r.Password, // no password set
+		DB:       r.Database, // use default DB
 	})
 
 	status, err := rdb.Ping(ctx).Result()
 	if err != nil {
-		log.Fatalln("Redis connection was refused")
+		log.Fatalln("redis connection was refused")
 		return nil, err
 	}
 	fmt.Println(status)

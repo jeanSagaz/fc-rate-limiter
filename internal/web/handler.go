@@ -14,18 +14,17 @@ import (
 
 type Handler struct {
 	IRedisRepository   redis.IRedisRepository
-	Redis              *redis.RedisConnection
 	TokenConfiguration []dto.TokenConfiguration
 	NumberRequests     int
 	Seconds            int
 }
 
-func NewHandler(redis *redis.RedisConnection,
+func NewHandler(iRedisRepository redis.IRedisRepository,
 	tokenConfiguration []dto.TokenConfiguration,
 	numberRequests int,
 	seconds int) *Handler {
 	return &Handler{
-		Redis:              redis,
+		IRedisRepository:   iRedisRepository,
 		TokenConfiguration: tokenConfiguration,
 		NumberRequests:     numberRequests,
 		Seconds:            seconds,

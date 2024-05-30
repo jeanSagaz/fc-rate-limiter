@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 
@@ -51,7 +52,7 @@ func main() {
 		panic(err)
 	}
 
-	redisConfig := redis.NewRedis(configs.Addr, configs.Password, configs.Database)
+	redisConn := redis.NewRedis(configs.Addr, configs.Password, configs.Database)
 
 	tokenConfiguration := []dto.TokenConfiguration{}
 	err = json.Unmarshal([]byte(configs.TokenConfiguration), &tokenConfiguration)
@@ -60,13 +61,14 @@ func main() {
 		panic(err)
 	}
 
-	// ctx := context.Background()
-	// rdg, err := redisConfig.Connect(ctx)
-	// if err != nil {
-	// 	fmt.Println(err)
-	// 	panic(err)
-	// }
+	ctx := context.Background()
+	rdb, err := redisConn.Connect(ctx)
+	if err != nil {
+		fmt.Println(err)
+		panic(err)
+	}
 
-	h := web.NewHandler(redisConfig, tokenConfiguration, configs.NumberRequests, configs.Seconds)
+	redisRepository := redis.NewRedisRepositoryDb(rdb)
+	h := web.NewHandler(redisRepository, tokenConfiguration, configs.NumberRequests, configs.Seconds)
 	h.HandlerRequests()
 }
