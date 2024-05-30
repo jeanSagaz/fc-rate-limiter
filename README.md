@@ -26,7 +26,7 @@ SECONDS: Tempo que vai durar a chave no Redis
 
 ## Tecnologias implementadas:
 
-go 1.20
+go 1.22
  - Router [chi](https://github.com/go-chi/chi)
  - Viper
  - Redis

@@ -2,10 +2,8 @@ package redis
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"log"
-	"time"
 
 	"github.com/go-redis/redis/v8"
 )
@@ -42,28 +40,4 @@ func (d *RedisConnection) Connect(ctx context.Context) (*redis.Client, error) {
 	fmt.Println(status)
 
 	return rdb, nil
-}
-
-func (d *RedisConnection) Set(c *redis.Client, key string, value interface{}, duration time.Duration) error {
-	p, err := json.Marshal(value)
-	if err != nil {
-		fmt.Println("Set - error: ", err)
-		return err
-	}
-
-	json := string(p)
-	return c.Set(d.Context, key, json, duration).Err()
-}
-
-func (d *RedisConnection) Get(c *redis.Client, key string) (string, error) {
-	value, err := c.Get(d.Context, key).Result()
-	if err == redis.Nil {
-		//if err == nil {
-		fmt.Println("Get - error: ", err)
-		return "", err
-	}
-
-	//var it := interface{}
-	//json.Unmarshal([]byte(value), any)
-	return value, nil
 }
