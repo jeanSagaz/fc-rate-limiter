@@ -3,7 +3,8 @@ Se vc gostou do projeto 'go-rate-limiter', por favor dêe uma estrela
 
 ## Como executar:
 Execute no prompt de comando na pasta raiz:  
-go run ./cmd/server/main.go   
+docker-compose up -d => redis  
+go run ./cmd/server/main.go => server  
 
 Instale o 'REST Client' no 'VS Code' e execute os testes da pasta:  
 ./tests/api.http  

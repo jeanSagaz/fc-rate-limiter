@@ -26,10 +26,11 @@ func loadConfig(path string) (*Conf, error) {
 
 	viper.SetConfigName("app_config")
 	viper.SetConfigType("env")
-	// viper.AddConfigPath(path)
+	//viper.AddConfigPath(path)
 	fmt.Println(path)
-	viper.SetConfigFile(".env")
-	viper.SetConfigFile("./cmd/server/.env")
+	//viper.SetConfigFile(".env")
+	//viper.SetConfigFile("./cmd/server/.env")
+	viper.SetConfigFile("./.env")
 	//viper.AutomaticEnv()
 	err := viper.ReadInConfig()
 	if err != nil {
@@ -47,7 +48,7 @@ func main() {
 	fmt.Println("rate-limiter")
 
 	configs, err := configs.LoadConfig(".")
-	//configs, err := loadConfig("./cmd/server/.env")
+	//configs, err := loadConfig(".env")
 	if err != nil {
 		panic(err)
 	}
