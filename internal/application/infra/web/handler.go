@@ -43,30 +43,10 @@ func (h *Handler) HandlerRequests() {
 func get(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-
-	// response := dto.Response{Message: "Hello World"}
-	// json.NewEncoder(w).Encode(response)
 }
 
 func post(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 
-	// var request dto.Request
-
-	// reqBody, err := io.ReadAll(r.Body)
-	// if err != nil {
-	// 	w.WriteHeader(http.StatusInternalServerError)
-	// 	http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
-	// 	return
-	// }
-
-	// err = json.Unmarshal(reqBody, &request)
-	// if err != nil {
-	// 	w.WriteHeader(http.StatusUnprocessableEntity)
-	// 	http.Error(w, err.Error(), http.StatusUnprocessableEntity)
-	// 	return
-	// }
-
 	w.WriteHeader(http.StatusCreated)
-	//json.NewEncoder(w).Encode(request)
 }
