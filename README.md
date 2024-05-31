@@ -41,4 +41,5 @@ go 1.22
  - DI
  - Redis
  - testing
+ - docker
  
