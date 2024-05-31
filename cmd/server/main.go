@@ -9,6 +9,7 @@ import (
 	"github.com/jeanSagaz/rate-limiter/internal/application/dto"
 	"github.com/jeanSagaz/rate-limiter/internal/application/infra/web"
 	"github.com/jeanSagaz/rate-limiter/pkg/infra/redis"
+	"github.com/jeanSagaz/rate-limiter/pkg/infra/redis/repository"
 	"github.com/spf13/viper"
 )
 
@@ -69,7 +70,7 @@ func main() {
 		panic(err)
 	}
 
-	redisRepository := redis.NewRedisRepositoryDb(rdb)
+	redisRepository := repository.NewRedisRepositoryDb(rdb)
 	h := web.NewHandler(redisRepository, tokenConfiguration, configs.NumberRequests, configs.Seconds)
 	h.HandlerRequests()
 }

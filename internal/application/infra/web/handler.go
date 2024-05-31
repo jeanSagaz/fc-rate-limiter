@@ -9,17 +9,17 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/jeanSagaz/rate-limiter/internal/application/dto"
-	"github.com/jeanSagaz/rate-limiter/pkg/infra/redis"
+	"github.com/jeanSagaz/rate-limiter/pkg/infra/redis/repository"
 )
 
 type Handler struct {
-	IRedisRepository   redis.IRedisRepository
+	IRedisRepository   repository.IRedisRepository
 	TokenConfiguration []dto.TokenConfiguration
 	NumberRequests     int
 	Seconds            int
 }
 
-func NewHandler(iRedisRepository redis.IRedisRepository,
+func NewHandler(iRedisRepository repository.IRedisRepository,
 	tokenConfiguration []dto.TokenConfiguration,
 	numberRequests int,
 	seconds int) *Handler {
