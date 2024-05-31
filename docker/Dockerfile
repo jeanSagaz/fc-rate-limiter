@@ -15,6 +15,7 @@ FROM alpine:latest
 WORKDIR /root
 
 COPY --from=build /app/server ./
+COPY cmd/server/.env .
 
 EXPOSE 8080
 

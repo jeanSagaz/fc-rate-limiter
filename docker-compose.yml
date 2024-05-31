@@ -14,7 +14,6 @@ services:
     build:
       dockerfile: docker/Dockerfile
       context: .
-    # restart: always    
     ports:
       - 8080:8080
     volumes:

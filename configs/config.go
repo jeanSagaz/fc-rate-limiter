@@ -20,8 +20,10 @@ func LoadConfig(path string) (*conf, error) {
 	viper.SetConfigType("env")
 	viper.AddConfigPath(path)
 	viper.SetConfigFile(".env")
-	viper.SetConfigFile("./cmd/server/.env")
-	//viper.AutomaticEnv()
+	// local
+	// viper.SetConfigFile("./cmd/server/.env")
+	// docker
+	viper.AutomaticEnv()
 	err := viper.ReadInConfig()
 	if err != nil {
 		panic(err)

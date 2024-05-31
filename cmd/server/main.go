@@ -10,46 +10,12 @@ import (
 	"github.com/jeanSagaz/rate-limiter/internal/application/infra/web"
 	"github.com/jeanSagaz/rate-limiter/pkg/infra/redis"
 	"github.com/jeanSagaz/rate-limiter/pkg/infra/redis/repository"
-	"github.com/spf13/viper"
 )
-
-type Conf struct {
-	Addr               string `mapstructure:"ADDR"`
-	Password           string `mapstructure:"PASSWORD"`
-	Database           int    `mapstructure:"DATABASE"`
-	TokenConfiguration string `mapstructure:"TOKEN_CONFIGURATION"`
-	NumberRequests     int    `mapstructure:"NUMBER_REQUESTS"`
-	Seconds            int    `mapstructure:"SECONDS"`
-}
-
-func loadConfig(path string) (*Conf, error) {
-	var cfg *Conf
-
-	viper.SetConfigName("app_config")
-	viper.SetConfigType("env")
-	//viper.AddConfigPath(path)
-	fmt.Println(path)
-	//viper.SetConfigFile(".env")
-	//viper.SetConfigFile("./cmd/server/.env")
-	viper.SetConfigFile("./.env")
-	//viper.AutomaticEnv()
-	err := viper.ReadInConfig()
-	if err != nil {
-		panic(err)
-	}
-	err = viper.Unmarshal(&cfg)
-	if err != nil {
-		panic(err)
-	}
-
-	return cfg, err
-}
 
 func main() {
 	fmt.Println("rate-limiter")
 
 	configs, err := configs.LoadConfig(".")
-	//configs, err := loadConfig(".env")
 	if err != nil {
 		panic(err)
 	}

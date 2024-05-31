@@ -3,8 +3,16 @@ Se vc gostou do projeto 'go-rate-limiter', por favor dêe uma estrela
 
 ## Como executar:
 Execute no prompt de comando na pasta raiz:  
-docker-compose up -d => redis  
-go run ./cmd/server/main.go => server  
+docker-compose up -d  
+Para subir o 'redis' e o 'server' na porta 8080.  
+
+Caso queira rodar local execute o comando:  
+go run ./cmd/server/main.go  
+Lembrando que deve alterar os arquivos:  
+**configs/config.go**  
+Comentar a linha 'docker' e descomentar a linha 'local'.  
+**cmd/server/.env**  
+Comentar a linha 'docker' e descomentar a linha 'local'.  
 
 Instale o 'REST Client' no 'VS Code' e execute os testes da pasta:  
 ./tests/api.http  
