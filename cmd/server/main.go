@@ -7,7 +7,7 @@ import (
 
 	"github.com/jeanSagaz/rate-limiter/configs"
 	"github.com/jeanSagaz/rate-limiter/internal/application/dto"
-	"github.com/jeanSagaz/rate-limiter/internal/web"
+	"github.com/jeanSagaz/rate-limiter/internal/application/infra/web"
 	"github.com/jeanSagaz/rate-limiter/pkg/infra/redis"
 	"github.com/spf13/viper"
 )

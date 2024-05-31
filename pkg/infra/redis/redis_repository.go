@@ -16,7 +16,7 @@ func NewRedisRepositoryDb(db *redis.Client) *RedisRepository {
 	return &RedisRepository{RedisDb: db}
 }
 
-func (r *RedisRepository) Set(ctx context.Context, key string, value interface{}, duration time.Duration) error {
+func (r *RedisRepository) SetValue(ctx context.Context, key string, value interface{}, duration time.Duration) error {
 	b, err := json.Marshal(value)
 	if err != nil {
 		return err
@@ -26,7 +26,7 @@ func (r *RedisRepository) Set(ctx context.Context, key string, value interface{}
 	return r.RedisDb.Set(ctx, key, json, duration).Err()
 }
 
-func (r *RedisRepository) Get(ctx context.Context, key string) (string, error) {
+func (r *RedisRepository) GetValue(ctx context.Context, key string) (string, error) {
 	value, err := r.RedisDb.Get(ctx, key).Result()
 	if err == redis.Nil {
 		return "", err

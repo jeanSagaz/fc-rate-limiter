@@ -43,7 +43,6 @@ func (h *Handler) HandlerRequests() {
 }
 
 func get(w http.ResponseWriter, r *http.Request) {
-	//w.Header().Add("Content-Type", "application/json")
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 

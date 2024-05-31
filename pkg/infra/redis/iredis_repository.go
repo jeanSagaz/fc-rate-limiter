@@ -6,6 +6,6 @@ import (
 )
 
 type IRedisRepository interface {
-	Set(ctx context.Context, key string, value interface{}, duration time.Duration) error
-	Get(ctx context.Context, key string) (string, error)
+	SetValue(ctx context.Context, key string, value interface{}, duration time.Duration) error
+	GetValue(ctx context.Context, key string) (string, error)
 }

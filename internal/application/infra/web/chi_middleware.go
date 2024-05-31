@@ -16,11 +16,11 @@ func verifyIp(h *Handler, w http.ResponseWriter, r *http.Request) {
 	l := len(ip) - strings.LastIndex(ip, ":")
 	ip = ip[:len(ip)-l]
 
-	value, _ := h.IRedisRepository.Get(ctx, ip)
+	value, _ := h.IRedisRepository.GetValue(ctx, ip)
 	if len(value) == 0 {
 
 		d := domain.Entity{Key: ip, Count: 1, Time: time.Now()}
-		h.IRedisRepository.Set(ctx, ip, d, time.Second*time.Duration(h.Seconds))
+		h.IRedisRepository.SetValue(ctx, ip, d, time.Second*time.Duration(h.Seconds))
 
 	} else {
 
@@ -28,7 +28,7 @@ func verifyIp(h *Handler, w http.ResponseWriter, r *http.Request) {
 		json.Unmarshal([]byte(value), &data)
 
 		data.Count = data.Count + 1
-		h.IRedisRepository.Set(ctx, data.Key, data, time.Second*time.Duration(h.Seconds))
+		h.IRedisRepository.SetValue(ctx, data.Key, data, time.Second*time.Duration(h.Seconds))
 
 		// n := time.Now()
 		// a := data.Time.Add((time.Second * time.Duration(h.Seconds)) + 1)
@@ -54,11 +54,11 @@ func verifyToken(h *Handler, w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	value, _ := h.IRedisRepository.Get(ctx, token.Token)
+	value, _ := h.IRedisRepository.GetValue(ctx, token.Token)
 	if len(value) == 0 {
 
 		e := domain.Entity{Key: token.Token, Count: 1, Time: time.Now()}
-		h.IRedisRepository.Set(ctx, token.Token, e, time.Second*token.Seconds)
+		h.IRedisRepository.SetValue(ctx, token.Token, e, time.Second*token.Seconds)
 
 	} else {
 
@@ -66,7 +66,7 @@ func verifyToken(h *Handler, w http.ResponseWriter, r *http.Request) {
 		json.Unmarshal([]byte(value), &data)
 
 		data.Count = data.Count + 1
-		h.IRedisRepository.Set(ctx, data.Key, data, time.Second*token.Seconds)
+		h.IRedisRepository.SetValue(ctx, data.Key, data, time.Second*token.Seconds)
 
 		// n := time.Now()
 		// a := data.Time.Add(time.Second * time.Duration(token.Seconds))
