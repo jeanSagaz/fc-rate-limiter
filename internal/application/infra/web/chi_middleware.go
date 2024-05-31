@@ -1,7 +1,9 @@
 package web
 
 import (
+	"bytes"
 	"encoding/json"
+	"io"
 	"net/http"
 	"strings"
 	"time"
@@ -34,7 +36,10 @@ func verifyIp(h *Handler, w http.ResponseWriter, r *http.Request) {
 		// a := data.Time.Add((time.Second * time.Duration(h.Seconds)) + 1)
 		// if n.After(a) && data.Count > h.NumberRequests {
 		if data.Count > h.NumberRequests {
+			// w.Write([]byte("you have reached the maximum number of requests or actions allowed within a certain time frame"))
+			http.Error(w, "you have reached the maximum number of requests or actions allowed within a certain time frame", http.StatusTooManyRequests)
 			w.WriteHeader(http.StatusTooManyRequests)
+			r.Body = io.NopCloser(bytes.NewReader([]byte("")))
 		}
 
 	}
@@ -72,7 +77,10 @@ func verifyToken(h *Handler, w http.ResponseWriter, r *http.Request) {
 		// a := data.Time.Add(time.Second * time.Duration(token.Seconds))
 		// if n.After(a) && data.Count > token.NumberRequests {
 		if data.Count > token.NumberRequests {
+			// w.Write([]byte("you have reached the maximum number of requests or actions allowed within a certain time frame"))
+			http.Error(w, "you have reached the maximum number of requests or actions allowed within a certain time frame", http.StatusTooManyRequests)
 			w.WriteHeader(http.StatusTooManyRequests)
+			r.Body = io.NopCloser(bytes.NewReader([]byte("")))
 		}
 
 	}
