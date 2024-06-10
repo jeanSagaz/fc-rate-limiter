@@ -14,8 +14,8 @@ import (
 
 func TestSetRedis(t *testing.T) {
 	// Arrange
-	redisConn := pkgRedis.NewRedis("localhost:6379", "Redis", 0)
 	ctx := context.Background()
+	redisConn := pkgRedis.NewRedis("localhost:6379", "Redis", 0)
 	rdb, err := redisConn.Connect(ctx)
 	if err != nil {
 		log.Fatalf("error connecting to Redis")
@@ -34,8 +34,8 @@ func TestSetRedis(t *testing.T) {
 
 func TestGetRedis(t *testing.T) {
 	// Arrange
-	redisConn := pkgRedis.NewRedis("localhost:6379", "Redis", 0)
 	ctx := context.Background()
+	redisConn := pkgRedis.NewRedis("localhost:6379", "Redis", 0)
 	rdb, err := redisConn.Connect(ctx)
 	if err != nil {
 		log.Fatalf("error connecting to Redis")
